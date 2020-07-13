@@ -1,10 +1,9 @@
 {
   "name": "USNRobot_2",
-  "description": "USN Robot for adding new participants",
+  "description": "USN Robot for adding new participants for certifications",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.8.5]",
-    "UiPath.Mail.Activities": "[1.8.5]",
     "UiPath.System.Activities": "[20.4.0]",
     "UiPath.UIAutomation.Activities": "[20.4.1]"
   },
