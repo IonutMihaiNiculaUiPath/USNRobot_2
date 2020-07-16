@@ -1,0 +1,27 @@
+{
+  "full_name": "Nume si Prenume",
+  "email": "ionut.macarin@gmail.com",
+  "ats_state": 0,
+  "invite_valid_from": "2020-01-30T16:30:17.402+00:00",
+  "invite_valid_to": "2021-01-31T16:30:17.402+00:00",
+  "invite_metadata": {
+    "ats_candidate_id": 1
+  },
+  "subject": null,
+  "message": null,
+  "template": "17090",
+  "evaluator_email": "mailevaluator@x.com",
+  "test_finish_url": null,
+  "test_result_url": null,
+  "send_email": true,
+  "tags": [
+    "Java",
+    "Hard",
+    "Senior"
+  ],
+  "force": "true",
+  "force_reattempt": null,
+  "accommodations": {
+    "additional_time_percent": 25
+  }
+}

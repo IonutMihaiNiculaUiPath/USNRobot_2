@@ -1,0 +1,27 @@
+{
+  "full_name": #full_name#,
+  "email": #email#,
+  "ats_state": 0,
+  "invite_valid_from": #invite_valid_from#,
+  "invite_valid_to": #invite_valid_to#,
+  "invite_metadata": {
+    "ats_candidate_id": 1
+  },
+  "subject": #subject#,
+  "message": #message#,
+  "template": null,
+  "evaluator_email": #evaluator_email#,
+  "test_finish_url": null,
+  "test_result_url": null,
+  "send_email": true,
+  "tags": [
+    "UiPath",
+    "Hard",
+    "Senior"
+  ],
+  "force": #force#,
+  "force_reattempt": null,
+  "accommodations": {
+    "additional_time_percent": 10
+  }
+}

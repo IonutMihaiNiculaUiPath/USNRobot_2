@@ -3,9 +3,14 @@
   "description": "USN Robot for adding new participants for certifications",
   "main": "Main.xaml",
   "dependencies": {
+    "UiPath.Database.Activities": "[1.3.7369.25200]",
     "UiPath.Excel.Activities": "[2.8.5]",
+    "UiPath.Mail.Activities": "[1.8.6]",
+    "UiPath.MicrosoftOffice365.Activities": "[1.3.0]",
     "UiPath.System.Activities": "[20.4.0]",
-    "UiPath.UIAutomation.Activities": "[20.4.1]"
+    "UiPath.UIAutomation.Activities": "[20.4.1]",
+    "UiPath.WebAPI.Activities": "[1.4.5]",
+    "UiPathTeam.SharePoint.Activities": "[1.5.2]"
   },
   "webServices": [],
   "schemaVersion": "4.0",
