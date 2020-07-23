@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Status_1__Questionnaire_tests_sent" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Status_1__Questionnaire_tests_sent" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
@@ -10,10 +10,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1176,645</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1324,1125</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Status_1__Questionnaire_tests_sent_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <sco:Collection x:TypeArguments="x:String">
+    <scg:List x:TypeArguments="x:String" Capacity="23">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -35,10 +35,12 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
-    </sco:Collection>
+      <x:String>UiPath.Database</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <sco:Collection x:TypeArguments="AssemblyReference">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="26">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -55,14 +57,97 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
-    </sco:Collection>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
+      <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The Robot will change the Status to 1. Questionnaire tests sent&#xD;&#xA;&#xD;&#xA;" DisplayName="Status_1__Questionnaire_tests_sent" sap:VirtualizedContainerService.HintSize="200,170" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="The Robot will check if the test was completed and change the Status to 3. Awaiting for BIO&#xA;&#xA;" DisplayName="Status_1__Questionnaire_tests_sent" sap:VirtualizedContainerService.HintSize="734,960" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="score" />
+      <Variable x:TypeArguments="x:String" Name="testId" />
+      <Variable x:TypeArguments="x:String" Name="positionId" />
+      <Variable x:TypeArguments="x:String" Name="status" />
+      <Variable x:TypeArguments="x:String" Name="created" />
+      <Variable x:TypeArguments="x:String" Name="dateDif" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetEmployeeHackerrankDetails workflow" sap:VirtualizedContainerService.HintSize="692,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\GetEmployeeHackerrankDetails.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DbConnectionString">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;dbConnection&quot;).ToString" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_PositionId">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="positionId" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetScoreAndHrId workflow" sap:VirtualizedContainerService.HintSize="692,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\GetScoreAndHrId.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+          <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerID">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;partner_id&quot;).ToString" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Score">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="score" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_HrID">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="testId" />
+        </OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PositionId">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Status">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="status" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Created">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="created" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <If Condition="[status = &quot;not started&quot;]" sap:VirtualizedContainerService.HintSize="692,554" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="547,404" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="505,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[dateDif]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[DateDiff(DateInterval.Day, DateTime.Parse(created), Datetime.Now).ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <If Condition="[Integer.Parse(dateDif) &gt;= 14]" sap:VirtualizedContainerService.HintSize="505,212" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Then>
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,62" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="Send reminder" />
+            </If.Then>
+            <If.Else>
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,62" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="Do nothing" />
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Then>
+    </If>
   </Sequence>
 </Activity>
