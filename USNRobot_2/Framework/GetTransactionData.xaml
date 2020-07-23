@@ -11,7 +11,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1052,1309</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>944,1309</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetTransactionData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -69,6 +69,7 @@
       <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
       <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Get a transaction item from a specified source (e.g., Orchestrator queues, spreadsheets, databases, mailboxes or web APIs). &#xA;&#xA;If there are no transaction items remaining, out_TransactionItem is set to Nothing, which leads to the End Process state. &#xA;&#xA;For cases in which there is only a single transaction (i.e., a linear process), use an If activity to check whether the argument in_TransactionNumber has the value 1 (meaning it is the first and only transaction) and assign the transaction item to out_TransactionItem. For any other value of in_TransactionNumber, out_TransactionItem should be set to Nothing.&#xA;&#xA;If there are multiple transactions, use the argument in_TransactionNumber as an index to retrieve the correct transaction to be processed. If there are no more transactions left, it is necessary to set out_TransactionItem to Nothing, thus ending the process." DisplayName="Get Transaction Data" sap:VirtualizedContainerService.HintSize="642,1144" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -112,12 +113,8 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadTransactionDataFromExcel workflow" sap:VirtualizedContainerService.HintSize="379,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\ReadData\ReadTransactionDataFromExcel.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_TransactionData">
-                        <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="io_TransactionData" />
-                      </OutArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_ExcelPath">
-                        <Literal x:TypeArguments="x:String">C:\Users\ionut-mihai.nicula\Documents\UiPath\UiPath Projects Assigned\[Internal]USN Robot\USN Partner Tracking - EMEA (1).xlsx</Literal>
-                      </InArgument>
+                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_TransactionData">[io_TransactionData]</OutArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ExcelPath">C:\Users\ionut-mihai.nicula\Documents\UiPath\UiPath Projects Assigned\[Internal]USN Robot\USN Partner Tracking - EMEA (1).xlsx</InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
                 </Sequence>
@@ -134,6 +131,9 @@
                 <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_TransactionData">
                   <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="io_TransactionData" />
                 </OutArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_DbConnectionString">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;dbConnection&quot;).ToString" />
+                </InArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
           </Sequence>

@@ -6,10 +6,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1140,1080</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>944,1301</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="21">
+    <scg:List x:TypeArguments="x:String" Capacity="22">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -31,6 +31,7 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Database</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -60,12 +61,13 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
       <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="683,915" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="683,1136" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="currentStatus" />
+      <Variable x:TypeArguments="ui:DatabaseConnection" Name="dbConnection" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -73,26 +75,9 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
+    <ui:DatabaseConnect DatabaseConnection="[dbConnection]" DisplayName="Connect" sap:VirtualizedContainerService.HintSize="641,59" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="System.Data.SqlClient" ConnectionString="[in_Config(&quot;dbConnection&quot;).ToString]" />
     <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="641,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
-    <ui:CommentOut DisplayName="Comment Out Excel data" sap:VirtualizedContainerService.HintSize="641,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-      <ui:CommentOut.Body>
-        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="272,153" sap2010:WorkflowViewState.IdRef="Sequence_2">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;pname: &quot; + in_TransactionItem(&quot;Partner's name&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;pcontactname: &quot; + in_TransactionItem(&quot;Partner's Contact name&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;pcontactemail: &quot; + in_TransactionItem(&quot;Partner's Contact email address&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;certifyingperson: &quot; + in_TransactionItem(&quot;Certifying person Name&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;certifyingpersonemail: &quot; + in_TransactionItem(&quot;Certifying person Email&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;role: &quot; + in_TransactionItem(&quot;Role&quot;).ToString + Environment.NewLine + &#xD;&#xA;&quot;status: &quot; + in_TransactionItem(&quot;Status&quot;).ToString + Environment.NewLine]" />
-        </Sequence>
-      </ui:CommentOut.Body>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-          <x:Boolean x:Key="IsPinned">False</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-    </ui:CommentOut>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="641,64" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Name: &quot; + in_TransactionItem(&quot;name&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;Email: &quot; + in_TransactionItem(&quot;email&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;Status: &quot; + in_TransactionItem(&quot;employeeStatus&quot;).ToString + Environment.NewLine]" />
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="641,64" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Name: &quot; + in_TransactionItem(&quot;name&quot;).ToString + Environment.NewLine +&#xA;&quot;Email: &quot; + in_TransactionItem(&quot;email&quot;).ToString + Environment.NewLine +&#xA;&quot;Status: &quot; + in_TransactionItem(&quot;employeeStatus&quot;).ToString + Environment.NewLine]" />
     <If Condition="[NOT String.IsNullOrEmpty(in_TransactionItem(&quot;employeeStatus&quot;).ToString)]" DisplayName="If valid status" sap:VirtualizedContainerService.HintSize="641,239" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -114,10 +99,13 @@
         <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[&quot;The status is NULL&quot;]" />
       </If.Else>
     </If>
-    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[currentStatus]" sap:VirtualizedContainerService.HintSize="641,182" sap2010:WorkflowViewState.IdRef="Switch`1_2">
-      <x:Null x:Key="1" />
-      <x:Null x:Key="2" />
-      <x:Null x:Key="3" />
+    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[currentStatus]" sap:VirtualizedContainerService.HintSize="641,333" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+      <WriteLine x:Key="1" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Status 1:  Questionnaire test sent" />
+      <WriteLine x:Key="2" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="Status 1:  Questionnaire test sent - Failed" />
+      <WriteLine x:Key="3" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="Status 3:  Awaiting for bio" />
+      <WriteLine x:Key="4" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="Status 4: Schedule Remote asessment" />
+      <WriteLine x:Key="5" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_7" Text="Status 5: Results Communicated - Failed" />
     </Switch>
+    <ui:DatabaseDisconnect DatabaseConnection="[dbConnection]" DisplayName="Disconnect" sap:VirtualizedContainerService.HintSize="641,22" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_1" />
   </Sequence>
 </Activity>
