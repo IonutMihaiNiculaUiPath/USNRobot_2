@@ -1,0 +1,481 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SendHackerrankTest" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_EmployeeId" Type="InArgument(x:String)" />
+    <x:Property Name="in_EmployeePosition" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_FullName" Type="InArgument(x:String)" />
+    <x:Property Name="in_Email" Type="InArgument(x:String)" />
+    <x:Property Name="in_Connection" Type="InArgument(ui:DatabaseConnection)" />
+    <x:Property Name="out_Inserted" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="in_PartnerId" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:SendHackerrankTest.in_Connection>
+    <InArgument x:TypeArguments="ui:DatabaseConnection" />
+  </this:SendHackerrankTest.in_Connection>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1398,3421</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SendHackerrankTest_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="23">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="46">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
+      <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="1408,3256" sap2010:WorkflowViewState.IdRef="Sequence_15">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="SendHackerrankTest" sap:VirtualizedContainerService.HintSize="1366,3164" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="theBody" />
+        <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="inviteDict" />
+        <Variable x:TypeArguments="x:String" Name="formId" />
+        <Variable x:TypeArguments="x:String" Name="testId" />
+        <Variable x:TypeArguments="x:Int32" Name="outStatus" />
+        <Variable x:TypeArguments="x:String" Name="candidateId" />
+        <Variable x:TypeArguments="x:String" Name="bioJotUrl" />
+        <Variable x:TypeArguments="sd:DataTable" Name="hackerRankDt" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1324,64" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;=== SendHackerrank Test===&quot; + Environment.NewLine +&#xA;&quot;Position: &quot; + in_EmployeePosition.ToString + Environment.NewLine +&#xA;in_FullName + &quot; &quot; + in_Email]" />
+      <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Check if the hackerrank ID is already in the hackerrank table" CommandType="Text" DataTable="[hackerRankDt]" DisplayName="Execute SELECT Query" ExistingDbConnection="[in_Connection]" sap:VirtualizedContainerService.HintSize="1324,132" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" Sql="[&quot;select * from dbo.hackerank where partneremployee_id=&quot;+in_EmployeeId.ToString +&quot; and position_ID=&quot; + in_EmployeePosition.ToString]">
+        <ui:ExecuteQuery.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        </ui:ExecuteQuery.Parameters>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ExecuteQuery>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1324,52" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="526,330" sap2010:WorkflowViewState.IdRef="Sequence_11">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If sap2010:Annotation.AnnotationText="Check if there is hacckerankId for employee-role combination" Condition="[hackerRankDt.Rows.Count = 0]" sap:VirtualizedContainerService.HintSize="484,238" sap2010:WorkflowViewState.IdRef="If_3">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </If>
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
+      <ui:ReadTextFile Content="[theBody]" DisplayName="Read API Template" FileName="API%20CALLS\inviteCall.txt" sap:VirtualizedContainerService.HintSize="1324,80" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+      <ui:MultipleAssign DisplayName="Multiple Assign Email Addresses and api calls Status 4" sap:VirtualizedContainerService.HintSize="1324,98" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+        <ui:MultipleAssign.AssignOperations>
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="16">
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[inviteDict]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new dictionary(of String, String)]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+          </scg:List>
+        </ui:MultipleAssign.AssignOperations>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:MultipleAssign>
+      <Switch x:TypeArguments="x:Int32" DisplayName="Switch jotFormID for BIO" Expression="[in_EmployeePosition]" sap:VirtualizedContainerService.HintSize="1324,52" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence x:Key="4" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[testId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("DevTestID").toString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[formId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("JOTDevBioId").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+        <Sequence x:Key="6" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[testId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("BATestID").toString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[formId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("JOTBaBioId").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+        <Sequence x:Key="5" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[testId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("SATestID").toString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[formId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("JOTSaBioId").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+        <Sequence x:Key="7" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[testId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("InfraTestID").toString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[formId]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("JOTInfraBioId").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </Switch>
+      <Assign DisplayName="Assign devBio" sap:VirtualizedContainerService.HintSize="1324,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[bioJotUrl]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["https://form.jotform.com/"+formId+"?employeeId="+in_EmployeeId]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Sequence sap2010:Annotation.AnnotationText="Create dictionary for hackerrank dynamic values" DisplayName="Invite Dictionary" sap:VirtualizedContainerService.HintSize="1324,112" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add FullName" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_1" Key="#full_name#" Value="[in_FullName]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add Email" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_2" Key="#email#" Value="[in_Email]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add invite_valid_from" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_3" Key="#invite_valid_from#" Value="[system.DateTime.now.ToString(&quot;dd/MM/yyyy hh:mm:ss&quot;)]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add invite_valid_to" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_4" Key="#invite_valid_to#" Value="[DateTime.Now.AddDays(convert.ToInt32(in_Config(&quot;ValidNumberOfDays&quot;))).ToString(&quot;dd/MM/yyyy hh:mm:ss&quot;)]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add to subject" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_5" Key="#subject#" Value="[in_Config(&quot;EmailSubject4&quot;).ToString]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add to message" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_6" Key="#message#" Value="[in_Config(&quot;EmailBody4&quot;).ToString]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add to evaluator_email" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_7" Key="#evaluator_email#" Value="[in_Config(&quot;EvaluatorEmail4&quot;).ToString]" />
+        <p:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[inviteDict]" DisplayName="Add to force send email" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_8" Key="#force#" Value="[in_Config(&quot;ForceInvite&quot;).ToString]" />
+      </Sequence>
+      <ui:ForEach x:TypeArguments="scg:KeyValuePair(x:String, x:String)" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Modify the dynamic values of the bodyapi" DisplayName="For Each item in Dict" sap:VirtualizedContainerService.HintSize="1324,318" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[inviteDict]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:String)">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:String)" Name="item" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign theBodyApiRPADev" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[theBody]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[theBody.Replace(item.Key,""""+item.value+"""")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEach.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEach>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1324,62" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;Endpoint: &quot; + &quot;https://www.hackerrank.com/x/api/v3/tests/&quot;+testId+&quot;/candidates&quot;]" />
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1324,64" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;Body: &quot; + Environment.NewLine  +&#xA;theBody]" />
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1324,62" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;Bio: &quot; + Environment.NewLine + theBody]" />
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InviteApiCall RPA DEV" sap:VirtualizedContainerService.HintSize="1324,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\InviteApiCall.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_Body">
+            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="theBody" />
+          </InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_Token">
+            <Literal x:TypeArguments="x:String">Bearer d4ac6a7c3fd658895c1079af45797798553ab84af4f2ea37b39bf32a3f972d79</Literal>
+          </InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_EndPoint">
+            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;https://www.hackerrank.com/x/api/v3/tests/&quot;+testId+&quot;/candidates&quot;" />
+          </InArgument>
+          <OutArgument x:TypeArguments="x:Int32" x:Key="out_Status">
+            <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="outStatus" />
+          </OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_CandidateID">
+            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="candidateId" />
+          </OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeWorkflowFile>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1324,64" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[&quot;Status: &quot; + outStatus.ToString + Environment.NewLine +&#xA;&quot;TestId: &quot; + candidateId.ToString]" />
+      <If Condition="[outStatus =200]" sap:VirtualizedContainerService.HintSize="1324,1205" sap2010:WorkflowViewState.IdRef="If_1">
+        <If.Then>
+          <Sequence DisplayName="Update hackerrank table" sap:VirtualizedContainerService.HintSize="865,1055" sap2010:WorkflowViewState.IdRef="Sequence_9">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="dt" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="823,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Updating hackerrank...&quot;]" />
+            <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Check if the hackerrank ID is already in the hackerrank table" CommandType="Text" DataTable="[dt]" DisplayName="Execute SELECT Query" ExistingDbConnection="[in_Connection]" sap:VirtualizedContainerService.HintSize="823,132" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[&quot;select * from dbo.hackerank where hackerrankTestID=&quot;+candidateId]">
+              <ui:ExecuteQuery.Parameters>
+                <scg:Dictionary x:TypeArguments="x:String, Argument" />
+              </ui:ExecuteQuery.Parameters>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ExecuteQuery>
+            <If Condition="[dt.Rows.Count = 0]" sap:VirtualizedContainerService.HintSize="823,558" sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="402,408" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="360,62" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="Hackerrank Id does not exists" />
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateHackerrankTable workflow" sap:VirtualizedContainerService.HintSize="360,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\UpdateHackerrankTable.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeID">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_EmployeeId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_hackerrankTestID">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="candidateId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_status">
+                        <Literal x:TypeArguments="x:String">not started</Literal>
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_positionID">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_EmployeePosition.ToString" />
+                      </InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="360,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ID">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_PartnerId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;Hackerrank test sent; TestID = &quot; + candidateId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
+                      </InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap:VirtualizedContainerService.HintSize="376,281" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="WriteLine_7" Text="Hackerrank Id exists" />
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ID">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_PartnerId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;Hackerrank test existing; TestID = &quot; + candidateId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
+                      </InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </Sequence>
+              </If.Else>
+            </If>
+            <Assign sap:VirtualizedContainerService.HintSize="823,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[out_Inserted]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <Sequence sap:VirtualizedContainerService.HintSize="414,539" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="372,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[&quot;The Candidate was not invited. Email: &quot;+in_Email +&quot; Status code: &quot; +outStatus.ToString  + &quot; Position: &quot; + in_EmployeePosition.ToString]" />
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoHackerrank workflow" sap:VirtualizedContainerService.HintSize="372,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\InsertIntoHackerrankTable.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[in_Connection]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeID">[in_EmployeeId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_hackerrankTestID">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_status">not invited</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_positionID">[in_EmployeePosition.ToString]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="372,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ID">[in_PartnerId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog" xml:space="preserve">["The Candidate was not invited. Email: "+in_Email +" Status code: " +outStatus.ToString  + " Position: " + in_EmployeePosition.ToString + Environment.NewLine + "Inserted into Hackkerank with empty HackerrankTestId"]</InArgument>
+                <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[in_Connection]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <Assign sap:VirtualizedContainerService.HintSize="372,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[out_Inserted]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+  </Sequence>
+</Activity>
