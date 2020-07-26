@@ -359,6 +359,9 @@
                 <InArgument x:TypeArguments="x:String" x:Key="in_positionID">
                   <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_EmployeePosition.ToString" />
                 </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_score">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
           </Sequence>
