@@ -8,7 +8,7 @@
     <x:Property Name="out_Created" Type="OutArgument(x:String)" />
     <x:Property Name="in_EmployeeId" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1044,1173</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1279,1073</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="36">
@@ -58,10 +58,9 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.CV</AssemblyReference>
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="480,1008" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap:VirtualizedContainerService.HintSize="480,908" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="myDT" />
     </Sequence.Variables>
@@ -70,14 +69,6 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="438,60" sap2010:WorkflowViewState.IdRef="Assign_6">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[in_EmployeeId]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">481</InArgument>
-      </Assign.Value>
-    </Assign>
     <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;SELECT score,hackerrankTestID,status,created from hackerank where partneremployee_id = &quot;+in_EmployeeId+&quot; and position_ID= &quot;+in_PositionId]" />
     <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[myDT]" DisplayName="Execute SELECT Query-&gt;devHRID" ExistingDbConnection="[in_Connection]" sap:VirtualizedContainerService.HintSize="438,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[&quot;SELECT score,hackerrankTestID,status,created from hackerank where partneremployee_id = &quot;+in_EmployeeId+&quot; and position_ID= &quot;+in_PositionId]">
       <ui:ExecuteQuery.Parameters>

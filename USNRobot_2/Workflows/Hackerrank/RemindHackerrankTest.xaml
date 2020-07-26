@@ -6,7 +6,6 @@
     <x:Property Name="in_FullName" Type="InArgument(x:String)" />
     <x:Property Name="in_Email" Type="InArgument(x:String)" />
     <x:Property Name="in_Connection" Type="InArgument(ui:DatabaseConnection)" />
-    <x:Property Name="out_Inserted" Type="OutArgument(x:Boolean)" />
     <x:Property Name="in_PartnerId" Type="InArgument(x:String)" />
   </x:Members>
   <this:SendHackerrankTest.in_Connection>
