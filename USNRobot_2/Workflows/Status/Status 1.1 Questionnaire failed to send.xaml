@@ -1,11 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Activity mc:Ignorable="sap sap2010" x:Class="Status_1_1_Questionnaire_failed_to_send" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Status_1_1_Questionnaire_failed_to_send" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="dbConnection" Type="InArgument(ui:DatabaseConnection)" />
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1324,1433</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1279,1433</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="32">
@@ -27,10 +26,11 @@
       <x:String>Microsoft.VisualBasic</x:String>
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Database</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>System.Data</AssemblyReference>
@@ -43,6 +43,16 @@
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
+      <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap:VirtualizedContainerService.HintSize="1260,1268" sap2010:WorkflowViewState.IdRef="Sequence_2">
@@ -90,14 +100,27 @@
           </sap:WorkflowViewStateService.ViewState>
           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendHackerrankTest workflow" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Workflows/Hackerrank/RemindHackerrankTest.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
-              <InArgument x:TypeArguments="x:Int32" x:Key="in_EmployeePosition">[Integer.Parse(positionId)]</InArgument>
-              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_FullName">[in_TransactionItem("name").ToString]</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_Email">[in_TransactionItem("email").ToString]</InArgument>
-              <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-              <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Inserted">[inserted]</OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_PartnerId">[in_TransactionItem("partner_id").ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:Int32" x:Key="in_EmployeePosition">
+                <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="Integer.Parse(positionId)" />
+              </InArgument>
+              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_FullName">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;name&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Email">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;email&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_PartnerId">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;partner_id&quot;).ToString" />
+              </InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
           <If Condition="[inserted]" sap:VirtualizedContainerService.HintSize="755,581" sap2010:WorkflowViewState.IdRef="If_3">
@@ -110,9 +133,15 @@
                 </sap:WorkflowViewStateService.ViewState>
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateEmployeeStatus workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Workflows\UpdateEmployeeStatus.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Status">3</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
+                    <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                      <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Status">
+                      <Literal x:TypeArguments="x:String">1</Literal>
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+                    </InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendCandidateBioEmail workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Workflows\SendCandidateBioEmail.xaml">
