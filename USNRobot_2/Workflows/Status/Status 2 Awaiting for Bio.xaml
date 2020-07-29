@@ -246,7 +246,7 @@
           <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
         </InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
-          <Literal x:TypeArguments="x:String">21</Literal>
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
         </InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_roleTable">
           <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="bioRole" />
