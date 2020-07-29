@@ -1,0 +1,2 @@
+$var = curl -method GET 'https://eu-api.jotform.com/form/#formID#/submissions?apiKey=#apiKey#&filter={"created_at:gt":"#createdAt#"}';
+return $var.content;

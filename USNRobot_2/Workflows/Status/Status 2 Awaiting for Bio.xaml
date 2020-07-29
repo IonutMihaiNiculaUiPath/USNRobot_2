@@ -4,7 +4,7 @@
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1217,2713</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1217,3165</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="19">
@@ -30,7 +30,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="22">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="44">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>System.Data</AssemblyReference>
@@ -52,10 +52,11 @@
       <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
       <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Awaiting for bio" sap:VirtualizedContainerService.HintSize="1156,2508" sap2010:WorkflowViewState.IdRef="Sequence_7">
+  <Sequence DisplayName="Awaiting for bio" sap:VirtualizedContainerService.HintSize="1156,3000" sap2010:WorkflowViewState.IdRef="Sequence_7">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="query" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtPosition" />
@@ -93,7 +94,7 @@
         <InArgument x:TypeArguments="x:String">[dtPosition.Rows(0).Item(0).ToString]</InArgument>
       </Assign.Value>
     </Assign>
-    <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="1114,310" sap2010:WorkflowViewState.IdRef="Switch`1_4">
+    <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="1114,204" sap2010:WorkflowViewState.IdRef="Switch`1_4">
       <Assign x:Key="4" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_9">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[bioRole]</OutArgument>
@@ -127,24 +128,34 @@
         </Assign.Value>
       </Assign>
     </Switch>
+    <ui:Comment sap:VirtualizedContainerService.HintSize="1114,55" sap2010:WorkflowViewState.IdRef="Comment_4" Text="// Update parameters below" />
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetBioDB workflow" sap:VirtualizedContainerService.HintSize="1114,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Workflows\GetBioDB.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("id").ToString]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_roleTable">[bioRole]</InArgument>
-        <OutArgument x:TypeArguments="x:Boolean" x:Key="out_BioCompleted">[bioCompleted]</OutArgument>
+        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+          <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
+          <Literal x:TypeArguments="x:String">21</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_roleTable">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="bioRole" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:Boolean" x:Key="out_BioCompleted">
+          <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="bioCompleted" />
+        </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <If Condition="[not bioCompleted]" DisplayName="If bio completed" sap:VirtualizedContainerService.HintSize="1114,51" sap2010:WorkflowViewState.IdRef="If_2">
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1114,61" sap2010:WorkflowViewState.IdRef="WriteLine_12" Text="[&quot;Bio completed: &quot; + bioCompleted.ToString]" />
+    <If Condition="[not bioCompleted]" DisplayName="If bio completed" sap:VirtualizedContainerService.HintSize="1114,352" sap2010:WorkflowViewState.IdRef="If_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="837,1323" sap2010:WorkflowViewState.IdRef="Switch`1_5">
-          <Sequence x:Key="4" DisplayName="DEV" sap:VirtualizedContainerService.HintSize="797,1073" sap2010:WorkflowViewState.IdRef="Sequence_9">
+        <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="497,204" sap2010:WorkflowViewState.IdRef="Switch`1_5">
+          <Sequence x:Key="4" DisplayName="DEV" sap:VirtualizedContainerService.HintSize="797,1075" sap2010:WorkflowViewState.IdRef="Sequence_9">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="devRpaTools" />
               <Variable x:TypeArguments="x:String" Name="devRpaExperience" />
@@ -157,7 +168,6 @@
               <Variable x:TypeArguments="x:String" Name="devIdeUsed" />
               <Variable x:TypeArguments="x:String" Name="devProjectsDeveloped" />
               <Variable x:TypeArguments="x:String" Name="devComments" />
-              <Variable x:TypeArguments="x:String" Name="partnerDevId" />
               <Variable x:TypeArguments="x:Boolean" Name="DevJotBioCompleted" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
@@ -180,7 +190,7 @@
                 <OutArgument x:TypeArguments="x:String" x:Key="out_IdeUsed">[devIdeUsed]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_ProjectsDeveloped">[devProjectsDeveloped]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[devComments]</OutArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerDevId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_JOTBioCompleted">[DevJotBioCompleted]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
               <sap:WorkflowViewStateService.ViewState>
@@ -213,7 +223,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("DevRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[DevJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,554" sap2010:WorkflowViewState.IdRef="If_3">
+            <If Condition="[DevJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,514" sap2010:WorkflowViewState.IdRef="If_3">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -221,7 +231,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_8">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -231,7 +241,7 @@
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Workflows\InsertBioDevSaDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerDevId]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">devinfo</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[devGeoId]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[devExperience]</InArgument>
@@ -284,7 +294,7 @@
               </If.Else>
             </If>
           </Sequence>
-          <Sequence x:Key="5" DisplayName="SA" sap:VirtualizedContainerService.HintSize="797,1077" sap2010:WorkflowViewState.IdRef="Sequence_10">
+          <Sequence x:Key="5" DisplayName="SA" sap:VirtualizedContainerService.HintSize="797,1035" sap2010:WorkflowViewState.IdRef="Sequence_10">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="saRpaTools" />
               <Variable x:TypeArguments="x:String" Name="saRpaExperience" />
@@ -297,7 +307,6 @@
               <Variable x:TypeArguments="x:String" Name="saIdeUsed" />
               <Variable x:TypeArguments="x:String" Name="saProjectsDeveloped" />
               <Variable x:TypeArguments="x:String" Name="saComments" />
-              <Variable x:TypeArguments="x:String" Name="partnerSaId" />
               <Variable x:TypeArguments="x:Boolean" Name="saJotBioCompleted" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
@@ -320,7 +329,7 @@
                 <OutArgument x:TypeArguments="x:String" x:Key="out_IdeUsed">[saIdeUsed]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_ProjectsDeveloped">[saProjectsDeveloped]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[saComments]</OutArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerSaId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_JOTBioCompleted">[saJotBioCompleted]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
               <sap:WorkflowViewStateService.ViewState>
@@ -353,7 +362,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("SaRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[saJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,556" sap2010:WorkflowViewState.IdRef="If_4">
+            <If Condition="[saJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,516" sap2010:WorkflowViewState.IdRef="If_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -361,7 +370,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_11">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -371,7 +380,7 @@
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="Workflows\InsertBioDevSaDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerSaId]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">sainfo</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[saGeoId]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[saExperience]</InArgument>
@@ -414,7 +423,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Sa Bio Not Completed&quot;]">
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Sa Bio Not Completed&quot;]">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -424,7 +433,7 @@
               </If.Else>
             </If>
           </Sequence>
-          <Sequence x:Key="6" DisplayName="BA" sap:VirtualizedContainerService.HintSize="797,1077" sap2010:WorkflowViewState.IdRef="Sequence_13">
+          <Sequence x:Key="6" DisplayName="BA" sap:VirtualizedContainerService.HintSize="797,1035" sap2010:WorkflowViewState.IdRef="Sequence_13">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="baRpaExperience" />
               <Variable x:TypeArguments="x:String" Name="baUipathExperience" />
@@ -432,7 +441,6 @@
               <Variable x:TypeArguments="x:String" Name="baExperience" />
               <Variable x:TypeArguments="x:String" Name="baComments" />
               <Variable x:TypeArguments="x:String" Name="baIndustries" />
-              <Variable x:TypeArguments="x:String" Name="partnerBaId" />
               <Variable x:TypeArguments="x:Boolean" Name="BaJotBioCompleted" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
@@ -450,7 +458,7 @@
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Experience">[baExperience]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[baComments]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Industries">[baIndustries]</OutArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerBaId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_JOTBioCompleted">[BaJotBioCompleted]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
               <sap:WorkflowViewStateService.ViewState>
@@ -483,7 +491,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("BaRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[BaJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,556" sap2010:WorkflowViewState.IdRef="If_5">
+            <If Condition="[BaJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,516" sap2010:WorkflowViewState.IdRef="If_5">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -491,7 +499,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_12">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -501,7 +509,7 @@
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioBaDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_17" UnSafe="False" WorkflowFileName="Workflows/InsertBioBaDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerBaId]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">bainfo</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[baGeoId]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[baExperience]</InArgument>
@@ -539,7 +547,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Ba Bio Not Completed&quot;]">
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Ba Bio Not Completed&quot;]">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -549,14 +557,13 @@
               </If.Else>
             </If>
           </Sequence>
-          <Sequence x:Key="7" DisplayName="INFRA" sap:VirtualizedContainerService.HintSize="797,1077" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence x:Key="7" DisplayName="INFRA" sap:VirtualizedContainerService.HintSize="797,1075" sap2010:WorkflowViewState.IdRef="Sequence_15">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="infraRpaExperience" />
               <Variable x:TypeArguments="x:String" Name="infraUipathExperience" />
               <Variable x:TypeArguments="x:String" Name="infraGeoId" />
               <Variable x:TypeArguments="x:String" Name="infraExperience" />
               <Variable x:TypeArguments="x:String" Name="infraComments" />
-              <Variable x:TypeArguments="x:String" Name="partnerInfraId" />
               <Variable x:TypeArguments="x:String" Name="infraWindowsServer" />
               <Variable x:TypeArguments="x:String" Name="infraIIS" />
               <Variable x:TypeArguments="x:String" Name="infraAD" />
@@ -580,7 +587,7 @@
                 <OutArgument x:TypeArguments="x:String" x:Key="out_GeoId">[infraGeoId]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Experience">[infraExperience]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[infraComments]</OutArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerInfraId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_WindowsServer">[infraWindowsServer]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_IIS">[infraIIS]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_AD">[infraAD]</OutArgument>
@@ -620,7 +627,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("InfraRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[InfraJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,556" sap2010:WorkflowViewState.IdRef="If_6">
+            <If Condition="[InfraJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,514" sap2010:WorkflowViewState.IdRef="If_6">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -628,7 +635,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_14">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -638,7 +645,7 @@
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioInfraDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_22" UnSafe="False" WorkflowFileName="Workflows\InsertBioInfraDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
                       <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[partnerInfraId]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">infraInfo</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[infraGeoId]</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[infraExperience]</InArgument>
@@ -682,7 +689,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Infra Bio Not Completed&quot;]">
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Infra Bio Not Completed&quot;]">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -695,7 +702,7 @@
         </Switch>
       </If.Then>
     </If>
-    <If Condition="[bioCompleted]" sap:VirtualizedContainerService.HintSize="1114,1324" sap2010:WorkflowViewState.IdRef="If_7">
+    <If Condition="[bioCompleted]" sap:VirtualizedContainerService.HintSize="1114,1425" sap2010:WorkflowViewState.IdRef="If_7">
       <If.Then>
         <Sequence DisplayName="Update Status &amp; send email" sap:VirtualizedContainerService.HintSize="376,1086" sap2010:WorkflowViewState.IdRef="Sequence_16">
           <Sequence.Variables>
@@ -777,7 +784,7 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence DisplayName="Send reminder" sap:VirtualizedContainerService.HintSize="693,1176" sap2010:WorkflowViewState.IdRef="Sequence_17">
+        <Sequence DisplayName="Send reminder" sap:VirtualizedContainerService.HintSize="693,1277" sap2010:WorkflowViewState.IdRef="Sequence_17">
           <Sequence.Variables>
             <Variable x:TypeArguments="sd:DataTable" Name="dt" />
             <Variable x:TypeArguments="x:String" Name="query" />
@@ -790,12 +797,13 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
+          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="651,61" sap2010:WorkflowViewState.IdRef="WriteLine_11" Text="reminder" />
           <Assign sap:VirtualizedContainerService.HintSize="651,60" sap2010:WorkflowViewState.IdRef="Assign_35">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[query]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String" xml:space="preserve">["Select created, id from robotlog where  RobotLog=#bio#partnerId:" + in_TransactionItem("partner_id").ToString +"#position:"+positionId+"#"]</InArgument>
+              <InArgument x:TypeArguments="x:String" xml:space="preserve">["Select created, id from robotlog where  RobotLog='#bio#partnerId:" + in_TransactionItem("partner_id").ToString +"#position:"+positionId+"#' order by created desc"]</InArgument>
             </Assign.Value>
           </Assign>
           <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dt]" DisplayName="Execute Query" ExistingDbConnection="[dbConnection]" sap:VirtualizedContainerService.HintSize="651,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" Sql="[query]">
@@ -838,21 +846,11 @@
                 <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_9" Text="Send reminder" />
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendCandidateBioEmail workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_27" UnSafe="False" WorkflowFileName="Workflows\SendCandidateBioEmail.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Position">
-                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
-                    </InArgument>
-                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-                      <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
-                    </InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
-                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
-                    </InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Email">
-                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;email&quot;).ToString" />
-                    </InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Name">
-                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;name&quot;).ToString" />
-                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Position">[positionId]</InArgument>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Email">[in_TransactionItem("email").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Name">[in_TransactionItem("name").ToString]</InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
                 <ui:ExecuteQuery ContinueOnError="{x:Null}" DataTable="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Query" ExistingDbConnection="[dbConnection]" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_3" Sql="[&quot;update robotlog set created = '&quot;+Datetime.Now.ToString+&quot;' where id = &quot; + logId]">
@@ -863,7 +861,7 @@
               </Sequence>
             </If.Then>
             <If.Else>
-              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_10" Text="Do nothing" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_10" Text="Do not send reminder" />
             </If.Else>
           </If>
         </Sequence>
