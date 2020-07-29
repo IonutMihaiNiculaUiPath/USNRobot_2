@@ -3,11 +3,12 @@
     <x:Property Name="in_Connection" Type="InArgument(ui:DatabaseConnection)" />
     <x:Property Name="in_Status" Type="InArgument(x:String)" />
     <x:Property Name="in_EmployeeId" Type="InArgument(x:String)" />
+    <x:Property Name="in_Position" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1217,499</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>916,614</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>UpdateEmployeeStatus_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -74,8 +75,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;Update Employee status query: &quot; +&quot;update partneremployee set employeeStatus = '&quot; + in_Status + &quot;' where id = &quot; + in_EmployeeId]" />
-    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[myDT]" DisplayName="Execute Update partner statusQuery" ExistingDbConnection="[in_Connection]" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[&quot;update partneremployee set employeeStatus = &quot; + in_Status + &quot; where id = &quot; + in_EmployeeId]">
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;Update Employee status query: &quot; +&quot;update individualassessment set Employee_status_ID = '&quot; + in_Status + &quot;' where id = &quot; + in_EmployeeId + &quot; and Position_ID = &quot; + in_Position]" />
+    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[myDT]" DisplayName="Execute Update partner statusQuery" ExistingDbConnection="[in_Connection]" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[&quot;update individualassessment set Employee_status_ID = '&quot; + in_Status + &quot;' where id = &quot; + in_EmployeeId + &quot; and Position_ID = &quot; + in_Position]">
       <ui:ExecuteQuery.Parameters>
         <scg:Dictionary x:TypeArguments="x:String, Argument" />
       </ui:ExecuteQuery.Parameters>

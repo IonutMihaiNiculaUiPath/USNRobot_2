@@ -4,7 +4,7 @@
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1279,1433</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1250,1406</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="32">
@@ -51,11 +51,12 @@
       <AssemblyReference>OfficeDevPnP.Core</AssemblyReference>
       <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1260,1268" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap:VirtualizedContainerService.HintSize="1260,1241" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="positionId" />
       <Variable x:TypeArguments="x:Boolean" Name="inserted" />
@@ -66,13 +67,14 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <WriteLine sap:VirtualizedContainerService.HintSize="1218,61" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="Status 1:  Questionnaire test sent - Failed" />
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetEmployeeHackerrankDetails workflow" sap:VirtualizedContainerService.HintSize="1218,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\GetEmployeeHackerrankDetails.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_DbConnectionString">[in_Config("dbConnection").ToString]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_PositionId">[positionId]</OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
+    <Assign sap:VirtualizedContainerService.HintSize="1218,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[positionId]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem("Position_ID").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
     <If Condition="[positionId = &quot;&quot;]" sap:VirtualizedContainerService.HintSize="1218,948" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
         <Sequence sap:VirtualizedContainerService.HintSize="376,280" sap2010:WorkflowViewState.IdRef="Sequence_5">
@@ -141,6 +143,9 @@
                     </InArgument>
                     <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
                       <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Position">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
                     </InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>

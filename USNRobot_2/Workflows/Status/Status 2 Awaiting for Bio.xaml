@@ -4,7 +4,7 @@
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1217,3165</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1188,4056</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="19">
@@ -56,7 +56,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Awaiting for bio" sap:VirtualizedContainerService.HintSize="1156,3000" sap2010:WorkflowViewState.IdRef="Sequence_7">
+  <Sequence DisplayName="Awaiting for bio" sap:VirtualizedContainerService.HintSize="1156,3891" sap2010:WorkflowViewState.IdRef="Sequence_7">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="query" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtPosition" />
@@ -73,25 +73,12 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:Comment sap:VirtualizedContainerService.HintSize="1114,55" sap2010:WorkflowViewState.IdRef="Comment_2" Text="// TODO" />
-    <Assign sap:VirtualizedContainerService.HintSize="1114,60" sap2010:WorkflowViewState.IdRef="Assign_2">
-      <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[query]</OutArgument>
-      </Assign.To>
-      <Assign.Value>
-        <InArgument x:TypeArguments="x:String">["select top 1 position_ID from hackerank where partneremployee_id = " + in_TransactionItem("id").ToString + " order by created desc"]</InArgument>
-      </Assign.Value>
-    </Assign>
-    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtPosition]" DisplayName="Execute Query" ExistingDbConnection="[dbConnection]" sap:VirtualizedContainerService.HintSize="1114,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[query]">
-      <ui:ExecuteQuery.Parameters>
-        <scg:Dictionary x:TypeArguments="x:String, Argument" />
-      </ui:ExecuteQuery.Parameters>
-    </ui:ExecuteQuery>
     <Assign sap:VirtualizedContainerService.HintSize="1114,60" sap2010:WorkflowViewState.IdRef="Assign_4">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[positionId]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[dtPosition.Rows(0).Item(0).ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem("Position_ID").ToString]</InArgument>
       </Assign.Value>
     </Assign>
     <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="1114,204" sap2010:WorkflowViewState.IdRef="Switch`1_4">
@@ -131,22 +118,14 @@
     <ui:Comment sap:VirtualizedContainerService.HintSize="1114,55" sap2010:WorkflowViewState.IdRef="Comment_4" Text="// Update parameters below" />
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetBioDB workflow" sap:VirtualizedContainerService.HintSize="1114,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Workflows\GetBioDB.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
-          <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
-          <Literal x:TypeArguments="x:String">21</Literal>
-        </InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_roleTable">
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="bioRole" />
-        </InArgument>
-        <OutArgument x:TypeArguments="x:Boolean" x:Key="out_BioCompleted">
-          <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="bioCompleted" />
-        </OutArgument>
+        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">21</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_roleTable">[bioRole]</InArgument>
+        <OutArgument x:TypeArguments="x:Boolean" x:Key="out_BioCompleted">[bioCompleted]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1114,61" sap2010:WorkflowViewState.IdRef="WriteLine_12" Text="[&quot;Bio completed: &quot; + bioCompleted.ToString]" />
-    <If Condition="[not bioCompleted]" DisplayName="If bio completed" sap:VirtualizedContainerService.HintSize="1114,352" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[not bioCompleted]" DisplayName="If bio completed" sap:VirtualizedContainerService.HintSize="1114,1471" sap2010:WorkflowViewState.IdRef="If_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -154,8 +133,8 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="497,204" sap2010:WorkflowViewState.IdRef="Switch`1_5">
-          <Sequence x:Key="4" DisplayName="DEV" sap:VirtualizedContainerService.HintSize="797,1075" sap2010:WorkflowViewState.IdRef="Sequence_9">
+        <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Integer.Parse(positionId)]" sap:VirtualizedContainerService.HintSize="837,1323" sap2010:WorkflowViewState.IdRef="Switch`1_5">
+          <Sequence x:Key="4" DisplayName="DEV" sap:VirtualizedContainerService.HintSize="797,1073" sap2010:WorkflowViewState.IdRef="Sequence_9">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="devRpaTools" />
               <Variable x:TypeArguments="x:String" Name="devRpaExperience" />
@@ -223,7 +202,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("DevRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[DevJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,514" sap2010:WorkflowViewState.IdRef="If_3">
+            <If Condition="[DevJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,554" sap2010:WorkflowViewState.IdRef="If_3">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -231,7 +210,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_8">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -240,20 +219,48 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Workflows\InsertBioDevSaDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">devinfo</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[devGeoId]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[devExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">[devRpaExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">[devUipathExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_ProjectsDeveloped">[devProjectsDeveloped]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaTools">[devRpaTools]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_ProgrammingLanguage">[devProgrammingLanguage]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_VersionControl">[devVersionControl]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_IdeUsed">[devIdeUsed]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_OperatingSystems">[devOperatingSystems]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">[devComments]</InArgument>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">
+                        <Literal x:TypeArguments="x:String">devinfo</Literal>
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devGeoId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devRpaExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devUipathExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ProjectsDeveloped">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devProjectsDeveloped" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaTools">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devRpaTools" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ProgrammingLanguage">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devProgrammingLanguage" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_VersionControl">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devVersionControl" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_IdeUsed">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devIdeUsed" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_OperatingSystems">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devOperatingSystems" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="devComments" />
+                      </InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -294,7 +301,7 @@
               </If.Else>
             </If>
           </Sequence>
-          <Sequence x:Key="5" DisplayName="SA" sap:VirtualizedContainerService.HintSize="797,1035" sap2010:WorkflowViewState.IdRef="Sequence_10">
+          <Sequence x:Key="5" DisplayName="SA" sap:VirtualizedContainerService.HintSize="797,1073" sap2010:WorkflowViewState.IdRef="Sequence_10">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="saRpaTools" />
               <Variable x:TypeArguments="x:String" Name="saRpaExperience" />
@@ -362,7 +369,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("SaRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[saJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,516" sap2010:WorkflowViewState.IdRef="If_4">
+            <If Condition="[saJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,554" sap2010:WorkflowViewState.IdRef="If_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -370,7 +377,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_11">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -379,20 +386,48 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="Workflows\InsertBioDevSaDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">sainfo</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[saGeoId]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[saExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">[saRpaExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">[saUipathExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_ProjectsDeveloped">[saProjectsDeveloped]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaTools">[saRpaTools]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_ProgrammingLanguage">[saProgrammingLanguage]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_VersionControl">[saVersionControl]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_IdeUsed">[saIdeUsed]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_OperatingSystems">[saOperatingSystems]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">[saComments]</InArgument>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">
+                        <Literal x:TypeArguments="x:String">sainfo</Literal>
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saGeoId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saRpaExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saUipathExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ProjectsDeveloped">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saProjectsDeveloped" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaTools">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saRpaTools" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ProgrammingLanguage">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saProgrammingLanguage" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_VersionControl">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saVersionControl" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_IdeUsed">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saIdeUsed" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_OperatingSystems">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saOperatingSystems" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="saComments" />
+                      </InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -433,7 +468,7 @@
               </If.Else>
             </If>
           </Sequence>
-          <Sequence x:Key="6" DisplayName="BA" sap:VirtualizedContainerService.HintSize="797,1035" sap2010:WorkflowViewState.IdRef="Sequence_13">
+          <Sequence x:Key="6" DisplayName="BA" sap:VirtualizedContainerService.HintSize="797,1073" sap2010:WorkflowViewState.IdRef="Sequence_13">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="baRpaExperience" />
               <Variable x:TypeArguments="x:String" Name="baUipathExperience" />
@@ -491,7 +526,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("BaRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[BaJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,516" sap2010:WorkflowViewState.IdRef="If_5">
+            <If Condition="[BaJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,554" sap2010:WorkflowViewState.IdRef="If_5">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -499,7 +534,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_12">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -508,15 +543,33 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioBaDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_17" UnSafe="False" WorkflowFileName="Workflows/InsertBioBaDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">bainfo</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[baGeoId]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[baExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">[baRpaExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">[baUipathExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">[baComments]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Industries">[baIndustries]</InArgument>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">
+                        <Literal x:TypeArguments="x:String">bainfo</Literal>
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="baGeoId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="baExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="baRpaExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="baUipathExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="baComments" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Industries">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="baIndustries" />
+                      </InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -557,7 +610,7 @@
               </If.Else>
             </If>
           </Sequence>
-          <Sequence x:Key="7" DisplayName="INFRA" sap:VirtualizedContainerService.HintSize="797,1075" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence x:Key="7" DisplayName="INFRA" sap:VirtualizedContainerService.HintSize="797,1073" sap2010:WorkflowViewState.IdRef="Sequence_15">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="infraRpaExperience" />
               <Variable x:TypeArguments="x:String" Name="infraUipathExperience" />
@@ -627,7 +680,7 @@
                 <InArgument x:TypeArguments="x:String">[in_Config("InfraRemoteAssesmentURL").ToString]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[InfraJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,514" sap2010:WorkflowViewState.IdRef="If_6">
+            <If Condition="[InfraJotBioCompleted]" DisplayName="If jotCompleted" sap:VirtualizedContainerService.HintSize="755,554" sap2010:WorkflowViewState.IdRef="If_6">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
@@ -635,7 +688,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap:VirtualizedContainerService.HintSize="376,408" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_14">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -644,21 +697,51 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertBioInfraDB workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_22" UnSafe="False" WorkflowFileName="Workflows\InsertBioInfraDB.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">[in_TransactionItem("partner_id").ToString]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">infraInfo</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">[infraGeoId]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">[infraExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">[infraRpaExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">[infraUipathExperience]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">[infraComments]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_WindowsServer">[infraWindowsServer]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Iis">[infraIIS]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_AD">[infraAD]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_SqlServer">[infraSqlServer]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Virtualization">[infraVirtualization]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_CloudComputing">[infraCloudComputing]</InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_Nlb">[infraNlb]</InArgument>
+                      <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                        <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RoleTable">
+                        <Literal x:TypeArguments="x:String">infraInfo</Literal>
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_GeoId">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraGeoId" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Experience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_RpaExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraRpaExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_UipathExperience">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraUipathExperience" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Comments">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraComments" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_WindowsServer">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraWindowsServer" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Iis">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraIIS" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_AD">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraAD" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_SqlServer">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraSqlServer" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Virtualization">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraVirtualization" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_CloudComputing">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraCloudComputing" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_Nlb">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="infraNlb" />
+                      </InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -719,9 +802,18 @@
           <ui:Comment sap:VirtualizedContainerService.HintSize="334,55" sap2010:WorkflowViewState.IdRef="Comment_3" Text="// Update To/CC" />
           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateEmployeeStatus workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_24" UnSafe="False" WorkflowFileName="Workflows\UpdateEmployeeStatus.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_Status">4</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
+              <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Status">
+                <Literal x:TypeArguments="x:String">4</Literal>
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Position">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Position_ID&quot;).ToString" />
+              </InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_25" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">

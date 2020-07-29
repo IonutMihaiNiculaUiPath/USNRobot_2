@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1217,4727</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1156,4530</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Status_1__Questionnaire_tests_sent_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -38,7 +38,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="52">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -68,11 +68,10 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="The Robot will check if the test was completed and change the Status to 3. Awaiting for BIO&#xA;&#xA;" DisplayName="Status_1__Questionnaire_tests_sent" sap:VirtualizedContainerService.HintSize="1160,4562" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="The Robot will check if the test was completed and change the Status to 3. Awaiting for BIO&#xA;&#xA;" DisplayName="Status_1__Questionnaire_tests_sent" sap:VirtualizedContainerService.HintSize="1166,4365" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="hrScore" />
       <Variable x:TypeArguments="x:String" Name="hrTestId" />
-      <Variable x:TypeArguments="x:String" Name="positionId" />
       <Variable x:TypeArguments="x:String" Name="hrStatus" />
       <Variable x:TypeArguments="x:String" Name="hrCreated" />
       <Variable x:TypeArguments="x:String" Name="dateDif" />
@@ -80,6 +79,7 @@
       <Variable x:TypeArguments="x:String" Name="score" />
       <Variable x:TypeArguments="x:String" Name="plagiarism" />
       <Variable x:TypeArguments="x:String" Name="status" />
+      <Variable x:TypeArguments="x:String" Name="positionId" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -87,20 +87,15 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetEmployeeHackerrankDetails workflow" sap:VirtualizedContainerService.HintSize="1118,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\GetEmployeeHackerrankDetails.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_DbConnectionString">
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;dbConnection&quot;).ToString" />
-        </InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
-        </InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_PositionId">
-          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="positionId" />
-        </OutArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="TODO delete constant value from arguments" DisplayName="Invoke GetScoreAndHrId workflow" sap:VirtualizedContainerService.HintSize="1118,118" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\GetScoreAndHrId.xaml">
+    <Assign sap:VirtualizedContainerService.HintSize="1124,60" sap2010:WorkflowViewState.IdRef="Assign_33">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[positionId]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem("Position_ID").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="TODO delete constant value from arguments" DisplayName="Invoke GetScoreAndHrId workflow" sap:VirtualizedContainerService.HintSize="1124,118" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\GetScoreAndHrId.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
           <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
@@ -112,7 +107,7 @@
           <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="hrTestId" />
         </OutArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_PositionId">
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Position_ID&quot;).ToString" />
         </InArgument>
         <OutArgument x:TypeArguments="x:String" x:Key="out_Status">
           <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="hrStatus" />
@@ -121,7 +116,7 @@
           <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="hrCreated" />
         </OutArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
         </InArgument>
       </ui:InvokeWorkflowFile.Arguments>
       <sap:WorkflowViewStateService.ViewState>
@@ -130,10 +125,10 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InvokeWorkflowFile>
-    <Switch x:TypeArguments="x:String" DisplayName="Switch EndpointURL" Expression="[positionId]" sap:VirtualizedContainerService.HintSize="1118,52" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+    <Switch x:TypeArguments="x:String" DisplayName="Switch EndpointURL" Expression="[positionId]" sap:VirtualizedContainerService.HintSize="1124,204" sap2010:WorkflowViewState.IdRef="Switch`1_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
@@ -170,9 +165,9 @@
         </Assign.Value>
       </Assign>
     </Switch>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1118,62" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;EndpointUrl:&quot; + endpointUrl]" />
-    <ui:Comment sap:VirtualizedContainerService.HintSize="1118,56" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Delete below" />
-    <Assign sap:VirtualizedContainerService.HintSize="1118,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1124,61" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;EndpointUrl:&quot; + endpointUrl]" />
+    <ui:Comment sap:VirtualizedContainerService.HintSize="1124,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Delete below" />
+    <Assign sap:VirtualizedContainerService.HintSize="1124,60" sap2010:WorkflowViewState.IdRef="Assign_30">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[hrStatus]</OutArgument>
       </Assign.To>
@@ -180,7 +175,7 @@
         <InArgument x:TypeArguments="x:String">not started</InArgument>
       </Assign.Value>
     </Assign>
-    <If Condition="[hrStatus &lt;&gt; &quot;failed&quot; and hrStatus &lt;&gt; &quot;passed&quot;]" sap:VirtualizedContainerService.HintSize="1118,3735" sap2010:WorkflowViewState.IdRef="If_6">
+    <If Condition="[hrStatus &lt;&gt; &quot;failed&quot; and hrStatus &lt;&gt; &quot;passed&quot;]" sap:VirtualizedContainerService.HintSize="1124,3418" sap2010:WorkflowViewState.IdRef="If_6">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -188,13 +183,13 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="973,3585" sap2010:WorkflowViewState.IdRef="Sequence_10">
+        <Sequence sap:VirtualizedContainerService.HintSize="979,3270" sap2010:WorkflowViewState.IdRef="Sequence_10">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <If Condition="[hrTestId &lt;&gt; &quot;0&quot;]" sap:VirtualizedContainerService.HintSize="931,870" sap2010:WorkflowViewState.IdRef="If_3">
+          <If Condition="[hrTestId &lt;&gt; &quot;0&quot;]" sap:VirtualizedContainerService.HintSize="937,867" sap2010:WorkflowViewState.IdRef="If_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -202,7 +197,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <If.Then>
-              <Sequence sap:VirtualizedContainerService.HintSize="376,720" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence sap:VirtualizedContainerService.HintSize="376,719" sap2010:WorkflowViewState.IdRef="Sequence_4">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="x:String" Name="theResult" />
                   <Variable x:TypeArguments="x:Int32" Name="statusCode" />
@@ -213,7 +208,7 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Checking score" />
+                <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Checking score" />
                 <ui:HttpClient ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" Username="{x:Null}" AcceptFormat="JSON" Body="[Nothing]" BodyFormat="application/json" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Dev HTTP Request Hackerrank" EndPoint="[endpointUrl]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[theResult]" StatusCode="[statusCode]" TimeoutMS="6000">
                   <ui:HttpClient.Attachments>
                     <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
@@ -261,7 +256,7 @@
               </Sequence>
             </If.Then>
           </If>
-          <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[status]" sap:VirtualizedContainerService.HintSize="931,2583" sap2010:WorkflowViewState.IdRef="Switch`1_6">
+          <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[status]" sap:VirtualizedContainerService.HintSize="937,2271" sap2010:WorkflowViewState.IdRef="Switch`1_6">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -275,13 +270,13 @@
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Sequence DisplayName="Not started" sap:VirtualizedContainerService.HintSize="714,625" sap2010:WorkflowViewState.IdRef="Sequence_9">
+              <Sequence DisplayName="Not started" sap:VirtualizedContainerService.HintSize="718,620" sap2010:WorkflowViewState.IdRef="Sequence_9">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Assign sap:VirtualizedContainerService.HintSize="672,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                <Assign sap:VirtualizedContainerService.HintSize="676,60" sap2010:WorkflowViewState.IdRef="Assign_10">
                   <Assign.To>
                     <OutArgument x:TypeArguments="x:String">[dateDif]</OutArgument>
                   </Assign.To>
@@ -289,16 +284,16 @@
                     <InArgument x:TypeArguments="x:String">[DateDiff(DateInterval.Day, DateTime.Parse(hrCreated), Datetime.Now).ToString]</InArgument>
                   </Assign.Value>
                 </Assign>
-                <If Condition="[Integer.Parse(dateDif) &gt;= 14 and hrStatus = &quot;not started&quot;]" sap:VirtualizedContainerService.HintSize="672,431" sap2010:WorkflowViewState.IdRef="If_4">
+                <If Condition="[Integer.Parse(dateDif) &gt;= 14 and hrStatus = &quot;not started&quot;]" sap:VirtualizedContainerService.HintSize="676,428" sap2010:WorkflowViewState.IdRef="If_4">
                   <If.Then>
-                    <Sequence sap:VirtualizedContainerService.HintSize="397,281" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <Sequence sap:VirtualizedContainerService.HintSize="401,280" sap2010:WorkflowViewState.IdRef="Sequence_8">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="355,62" sap2010:WorkflowViewState.IdRef="WriteLine_8" Text="Send reminder" />
-                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendHackerrankTest workflow" sap:VirtualizedContainerService.HintSize="355,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Workflows/Hackerrank/RemindHackerrankTest.xaml">
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="359,61" sap2010:WorkflowViewState.IdRef="WriteLine_8" Text="Send reminder" />
+                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendHackerrankTest workflow" sap:VirtualizedContainerService.HintSize="359,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Workflows/Hackerrank/RemindHackerrankTest.xaml">
                         <ui:InvokeWorkflowFile.Arguments>
                           <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
                           <InArgument x:TypeArguments="x:Int32" x:Key="in_EmployeePosition">[Integer.Parse(positionId)]</InArgument>
@@ -312,12 +307,12 @@
                     </Sequence>
                   </If.Then>
                   <If.Else>
-                    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,62" sap2010:WorkflowViewState.IdRef="WriteLine_9" Text="Do nothing" />
+                    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_9" Text="Do nothing" />
                   </If.Else>
                 </If>
               </Sequence>
             </Sequence>
-            <Sequence x:Key="7" DisplayName="Taken" sap:VirtualizedContainerService.HintSize="891,2373" sap2010:WorkflowViewState.IdRef="Sequence_7">
+            <Sequence x:Key="7" DisplayName="Taken" sap:VirtualizedContainerService.HintSize="897,2065" sap2010:WorkflowViewState.IdRef="Sequence_7">
               <Sequence.Variables>
                 <Variable x:TypeArguments="x:String" Name="minScore" />
                 <Variable x:TypeArguments="x:String" Name="theBodyEm" />
@@ -328,7 +323,7 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Assign sap:VirtualizedContainerService.HintSize="849,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+              <Assign sap:VirtualizedContainerService.HintSize="855,60" sap2010:WorkflowViewState.IdRef="Assign_11">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:String">[minScore]</OutArgument>
                 </Assign.To>
@@ -336,14 +331,14 @@
                   <InArgument x:TypeArguments="x:String">[Nothing]</InArgument>
                 </Assign.Value>
               </Assign>
-              <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[positionId]" sap:VirtualizedContainerService.HintSize="849,508" sap2010:WorkflowViewState.IdRef="Switch`1_7">
+              <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[positionId]" sap:VirtualizedContainerService.HintSize="855,204" sap2010:WorkflowViewState.IdRef="Switch`1_7">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <Sequence x:Key="4" DisplayName="DEV" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <Sequence x:Key="4" DisplayName="DEV" sap:VirtualizedContainerService.HintSize="304,246" sap2010:WorkflowViewState.IdRef="Sequence_14">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -366,7 +361,7 @@
                     </Assign.Value>
                   </Assign>
                 </Sequence>
-                <Sequence x:Key="5" DisplayName="SA" sap:VirtualizedContainerService.HintSize="304,248" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <Sequence x:Key="5" DisplayName="SA" sap:VirtualizedContainerService.HintSize="304,246" sap2010:WorkflowViewState.IdRef="Sequence_15">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -389,7 +384,7 @@
                     </Assign.Value>
                   </Assign>
                 </Sequence>
-                <Sequence x:Key="6" DisplayName="BA" sap:VirtualizedContainerService.HintSize="304,248" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                <Sequence x:Key="6" DisplayName="BA" sap:VirtualizedContainerService.HintSize="304,246" sap2010:WorkflowViewState.IdRef="Sequence_16">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -412,7 +407,7 @@
                     </Assign.Value>
                   </Assign>
                 </Sequence>
-                <Sequence x:Key="7" DisplayName="INFRA" sap:VirtualizedContainerService.HintSize="304,248" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                <Sequence x:Key="7" DisplayName="INFRA" sap:VirtualizedContainerService.HintSize="304,246" sap2010:WorkflowViewState.IdRef="Sequence_17">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -436,8 +431,8 @@
                   </Assign>
                 </Sequence>
               </Switch>
-              <ui:Comment sap:VirtualizedContainerService.HintSize="849,56" sap2010:WorkflowViewState.IdRef="Comment_3" Text="// Delete below" />
-              <Assign sap:VirtualizedContainerService.HintSize="849,60" sap2010:WorkflowViewState.IdRef="Assign_32">
+              <ui:Comment sap:VirtualizedContainerService.HintSize="855,55" sap2010:WorkflowViewState.IdRef="Comment_3" Text="// Delete below" />
+              <Assign sap:VirtualizedContainerService.HintSize="855,60" sap2010:WorkflowViewState.IdRef="Assign_32">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:String">[score]</OutArgument>
                 </Assign.To>
@@ -445,22 +440,22 @@
                   <InArgument x:TypeArguments="x:String">100</InArgument>
                 </Assign.Value>
               </Assign>
-              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="849,62" sap2010:WorkflowViewState.IdRef="WriteLine_10" Text="[&quot;Min Score: &quot; + minScore +&quot; actual score: &quot; +score + &quot; passed: &quot; + (convert.ToDouble(score) &gt; convert.ToDouble(minScore)).ToString]" />
-              <If Condition="[convert.ToDouble(score) &gt; convert.ToDouble(minScore)]" sap:VirtualizedContainerService.HintSize="849,556" sap2010:WorkflowViewState.IdRef="If_5">
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="855,61" sap2010:WorkflowViewState.IdRef="WriteLine_10" Text="[&quot;Min Score: &quot; + minScore +&quot; actual score: &quot; +score + &quot; passed: &quot; + (convert.ToDouble(score) &gt; convert.ToDouble(minScore)).ToString]" />
+              <If Condition="[convert.ToDouble(score) &gt; convert.ToDouble(minScore)]" sap:VirtualizedContainerService.HintSize="855,554" sap2010:WorkflowViewState.IdRef="If_5">
                 <If.Then>
-                  <Sequence sap:VirtualizedContainerService.HintSize="402,406" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <Sequence sap:VirtualizedContainerService.HintSize="405,406" sap2010:WorkflowViewState.IdRef="Sequence_11">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Update Passed" sap:VirtualizedContainerService.HintSize="360,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\UpdateHackerrankTable.xaml">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Update Passed" sap:VirtualizedContainerService.HintSize="363,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\UpdateHackerrankTable.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
                           <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
                         </InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeID">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
                         </InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_hackerrankTestID">
                           <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="hrTestId" />
@@ -476,7 +471,7 @@
                         </InArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateEmployeeStatus workflow" sap:VirtualizedContainerService.HintSize="360,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Workflows\UpdateEmployeeStatus.xaml">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateEmployeeStatus workflow" sap:VirtualizedContainerService.HintSize="363,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Workflows\UpdateEmployeeStatus.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
                           <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
@@ -485,11 +480,14 @@
                           <Literal x:TypeArguments="x:String">3</Literal>
                         </InArgument>
                         <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
+                        </InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Position">
+                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;Position_ID&quot;).ToString" />
                         </InArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
-                    <Assign sap:VirtualizedContainerService.HintSize="360,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                    <Assign sap:VirtualizedContainerService.HintSize="363,60" sap2010:WorkflowViewState.IdRef="Assign_17">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[theBodyEm]</OutArgument>
                       </Assign.To>
@@ -500,35 +498,23 @@
                   </Sequence>
                 </If.Then>
                 <If.Else>
-                  <Sequence sap:VirtualizedContainerService.HintSize="402,279" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                  <Sequence sap:VirtualizedContainerService.HintSize="405,279" sap2010:WorkflowViewState.IdRef="Sequence_12">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Update Faield" sap:VirtualizedContainerService.HintSize="360,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\UpdateHackerrankTable.xaml">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Update Faield" sap:VirtualizedContainerService.HintSize="363,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\UpdateHackerrankTable.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
-                        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
-                          <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="in_Connection" />
-                        </InArgument>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeID">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
-                        </InArgument>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_hackerrankTestID">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="hrTestId" />
-                        </InArgument>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_status">
-                          <Literal x:TypeArguments="x:String">failed</Literal>
-                        </InArgument>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_positionID">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
-                        </InArgument>
-                        <InArgument x:TypeArguments="x:String" x:Key="in_score">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="score" />
-                        </InArgument>
+                        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[in_Connection]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_PartnerEmployeeID">[in_TransactionItem("id").ToString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_hackerrankTestID">[hrTestId]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_status">failed</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_positionID">[positionId]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_score">[score]</InArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
-                    <Assign sap:VirtualizedContainerService.HintSize="360,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                    <Assign sap:VirtualizedContainerService.HintSize="363,60" sap2010:WorkflowViewState.IdRef="Assign_18">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[theBodyEm]</OutArgument>
                       </Assign.To>

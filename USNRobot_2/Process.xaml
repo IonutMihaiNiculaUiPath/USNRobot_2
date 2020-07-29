@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1130,1343</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>916,1234</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -67,7 +67,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="683,1178" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="683,1029" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="currentStatus" />
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="dbConnection" />
@@ -79,9 +79,9 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:DatabaseConnect DatabaseConnection="[dbConnection]" DisplayName="Connect" sap:VirtualizedContainerService.HintSize="641,59" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="System.Data.SqlClient" ConnectionString="[in_Config(&quot;dbConnection&quot;).ToString]" />
-    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="641,56" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="641,64" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Name: &quot; + in_TransactionItem(&quot;name&quot;).ToString + Environment.NewLine +&#xA;&quot;Email: &quot; + in_TransactionItem(&quot;email&quot;).ToString + Environment.NewLine +&#xA;&quot;Status: &quot; + in_TransactionItem(&quot;employeeStatus&quot;).ToString + Environment.NewLine]" />
-    <If Condition="[NOT String.IsNullOrEmpty(in_TransactionItem(&quot;employeeStatus&quot;).ToString)]" DisplayName="If valid status" sap:VirtualizedContainerService.HintSize="641,243" sap2010:WorkflowViewState.IdRef="If_1">
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="641,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="641,64" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Name: &quot; + in_TransactionItem(&quot;name&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;Email: &quot; + in_TransactionItem(&quot;email&quot;).ToString + Environment.NewLine +&#xD;&#xA;&quot;Status: &quot; + in_TransactionItem(&quot;Employee_status_ID&quot;).ToString + Environment.NewLine]" />
+    <If Condition="[NOT String.IsNullOrEmpty(in_TransactionItem(&quot;Employee_status_ID&quot;).ToString)]" DisplayName="If valid status" sap:VirtualizedContainerService.HintSize="641,239" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -94,22 +94,22 @@
             <OutArgument x:TypeArguments="x:String">[currentStatus]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">[in_TransactionItem("employeeStatus").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String">[in_TransactionItem("Employee_status_ID").ToString]</InArgument>
           </Assign.Value>
         </Assign>
       </If.Then>
       <If.Else>
-        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[&quot;The status is NULL&quot;]" />
+        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[&quot;The status is NULL&quot;]" />
       </If.Else>
     </If>
-    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[currentStatus]" sap:VirtualizedContainerService.HintSize="641,366" sap2010:WorkflowViewState.IdRef="Switch`1_2">
-      <Sequence x:Key="1" DisplayName="Status Questionnaire sent" sap:VirtualizedContainerService.HintSize="421,281" sap2010:WorkflowViewState.IdRef="Sequence_6">
+    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[currentStatus]" sap:VirtualizedContainerService.HintSize="641,226" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+      <Sequence x:Key="1" DisplayName="Status Questionnaire sent" sap:VirtualizedContainerService.HintSize="421,280" sap2010:WorkflowViewState.IdRef="Sequence_6">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
-        <WriteLine sap:VirtualizedContainerService.HintSize="379,62" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Status 1:  Questionnaire test sent" />
+        <WriteLine sap:VirtualizedContainerService.HintSize="379,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="Status 1:  Questionnaire test sent" />
         <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Status 1. Questionnaire tests sent workflow" sap:VirtualizedContainerService.HintSize="379,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Workflows\Status\Status 1. Questionnaire tests sent.xaml">
           <ui:InvokeWorkflowFile.Arguments>
             <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
@@ -125,20 +125,14 @@
           <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" x:Key="3" DisplayName="Invoke Status 2 Awaiting for Bio workflow" sap:VirtualizedContainerService.HintSize="336,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_26" UnSafe="False" WorkflowFileName="Workflows/Status/Status 2 Awaiting for Bio.xaml">
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" x:Key="3" DisplayName="Invoke Status 2 Awaiting for Bio workflow" sap:VirtualizedContainerService.HintSize="339,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_26" UnSafe="False" WorkflowFileName="Workflows/Status/Status 2 Awaiting for Bio.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="dbConnection">
-            <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
-          </InArgument>
-          <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">
-            <mva:VisualBasicValue x:TypeArguments="sd:DataRow" ExpressionText="in_TransactionItem" />
-          </InArgument>
-          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
-            <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
-          </InArgument>
+          <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="dbConnection">[dbConnection]</InArgument>
+          <InArgument x:TypeArguments="sd:DataRow" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <WriteLine x:Key="4" sap:VirtualizedContainerService.HintSize="230,62" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="Status 4: Schedule Remote asessment" />
+      <WriteLine x:Key="4" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="Status 4: Schedule Remote asessment" />
       <WriteLine x:Key="5" sap:VirtualizedContainerService.HintSize="230,62" sap2010:WorkflowViewState.IdRef="WriteLine_7" Text="Status 5: Results Communicated - Failed" />
     </Switch>
     <ui:DatabaseDisconnect DatabaseConnection="[dbConnection]" DisplayName="Disconnect" sap:VirtualizedContainerService.HintSize="641,22" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_1" />
