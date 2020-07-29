@@ -4,10 +4,10 @@
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1250,1406</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1250,1411</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="32">
+    <scg:List x:TypeArguments="x:String" Capacity="19">
       <x:String>System.Activities</x:String>
       <x:String>System</x:String>
       <x:String>System.Collections.Generic</x:String>
@@ -30,7 +30,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="23">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>System.Data</AssemblyReference>
@@ -52,21 +52,20 @@
       <AssemblyReference>UiPathTeam.SharePoint</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>UiPath.Database</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1260,1241" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap:VirtualizedContainerService.HintSize="1260,1246" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="positionId" />
-      <Variable x:TypeArguments="x:Boolean" Name="inserted" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <WriteLine sap:VirtualizedContainerService.HintSize="1218,61" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="Status 1:  Questionnaire test sent - Failed" />
+    <WriteLine sap:VirtualizedContainerService.HintSize="1218,62" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="Status 1:  Questionnaire test sent - Failed" />
     <Assign sap:VirtualizedContainerService.HintSize="1218,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[positionId]</OutArgument>
@@ -75,35 +74,44 @@
         <InArgument x:TypeArguments="x:String">[in_TransactionItem("Position_ID").ToString]</InArgument>
       </Assign.Value>
     </Assign>
-    <If Condition="[positionId = &quot;&quot;]" sap:VirtualizedContainerService.HintSize="1218,948" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[positionId = &quot;&quot;]" sap:VirtualizedContainerService.HintSize="1218,952" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="376,280" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence sap:VirtualizedContainerService.HintSize="376,281" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_8" Text="Error no position found for Candidate" />
+          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="WriteLine_8" Text="Error no position found for Candidate" />
           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="x:String" x:Key="in_ID">[in_TransactionItem("partner_id").ToString]</InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">["ERROR: Employee ID: " + in_TransactionItem("id").ToString +" Not registered for a position"]</InArgument>
-              <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ID">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;partner_id&quot;).ToString" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;ERROR: Employee ID: &quot; + in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString +&quot; Not registered for a position&quot;" />
+              </InArgument>
+              <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+              </InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="797,800" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence sap:VirtualizedContainerService.HintSize="797,802" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Int32" Name="status" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendHackerrankTest workflow" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Workflows/Hackerrank/RemindHackerrankTest.xaml">
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke RemindHackerrankTest workflow" sap:VirtualizedContainerService.HintSize="755,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Workflows\Hackerrank\SendHackerrankTest.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
               </InArgument>
               <InArgument x:TypeArguments="x:Int32" x:Key="in_EmployeePosition">
                 <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="Integer.Parse(positionId)" />
@@ -123,9 +131,12 @@
               <InArgument x:TypeArguments="x:String" x:Key="in_PartnerId">
                 <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;partner_id&quot;).ToString" />
               </InArgument>
+              <OutArgument x:TypeArguments="x:Int32" x:Key="out_Status">
+                <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="status" />
+              </OutArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <If Condition="[inserted]" sap:VirtualizedContainerService.HintSize="755,581" sap2010:WorkflowViewState.IdRef="If_3">
+          <If Condition="[status = 200]" sap:VirtualizedContainerService.HintSize="755,583" sap2010:WorkflowViewState.IdRef="If_3">
             <If.Then>
               <Sequence sap:VirtualizedContainerService.HintSize="376,433" sap2010:WorkflowViewState.IdRef="Sequence_4">
                 <sap:WorkflowViewStateService.ViewState>
@@ -142,7 +153,7 @@
                       <Literal x:TypeArguments="x:String">1</Literal>
                     </InArgument>
                     <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
-                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;id&quot;).ToString" />
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
                     </InArgument>
                     <InArgument x:TypeArguments="x:String" x:Key="in_Position">
                       <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
@@ -151,18 +162,34 @@
                 </ui:InvokeWorkflowFile>
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendCandidateBioEmail workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Workflows\SendCandidateBioEmail.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Position">[positionId]</InArgument>
-                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">[in_TransactionItem("id").ToString]</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Email">[in_TransactionItem("email").ToString]</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_Name">[in_TransactionItem("name").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Position">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="positionId" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                      <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_EmployeeId">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Email">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;email&quot;).ToString" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Name">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;name&quot;).ToString" />
+                    </InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_ID">[in_TransactionItem("partner_id").ToString]</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">["Employee ID: " + in_TransactionItem("id").ToString +" Hackerrank test sent;"]</InArgument>
-                    <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ID">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;partner_id&quot;).ToString" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;Employee ID: &quot; + in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString +&quot; Hackerrank test sent;&quot;" />
+                    </InArgument>
+                    <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                      <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                    </InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
               </Sequence>
@@ -170,9 +197,15 @@
             <If.Else>
               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InsertIntoRobotLogTable workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Workflows\Logs\InsertIntoRobotLogTable.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_ID">[in_TransactionItem("partner_id").ToString]</InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">["Employee ID: " +"Hackerrank test NOT sent;"]</InArgument>
-                  <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">[dbConnection]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ID">
+                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;partner_id&quot;).ToString" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RobotLog">
+                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;Employee ID: &quot;+ in_TransactionItem(&quot;PartnerEmployee_ID&quot;).ToString+&quot; Hackerrank test NOT sent;&quot;" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connection">
+                    <mva:VisualBasicValue x:TypeArguments="ui:DatabaseConnection" ExpressionText="dbConnection" />
+                  </InArgument>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
             </If.Else>
